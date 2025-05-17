@@ -1,5 +1,5 @@
 // bring a path/module into scope, this specifically brings the spanish function into scope
-use crate::greeting::{formal, casual};
+use crate::greeting::{casual, formal};
 
 fn main() {
     greeting::formal::english();
@@ -9,10 +9,8 @@ fn main() {
     casual::spanish();
 }
 
-
 mod greeting {
-    pub mod formal
-    {
+    pub mod formal {
         pub fn english() -> () {
             println!("hello");
         }
@@ -31,5 +29,4 @@ mod greeting {
             println!("oye");
         }
     }
-
 }
