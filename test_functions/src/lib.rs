@@ -9,6 +9,20 @@ fn is_even(number: i32) -> bool {
     }
 }
 
+pub struct Person {
+    name: String,
+}
+
+impl Person {
+    pub fn new(name: String) -> Person {
+        if name.is_empty() {
+            panic!("A Person needs a name!");
+        }
+
+        Person { name }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*; // bring everything in the higher level into scope in order to use
@@ -46,5 +60,27 @@ mod tests {
     #[test]
     fn test_with_assert_ne() {
         assert_ne!(add(2, 2), 3);
+    }
+
+    // Should panic will pass if the test panics and fail if it does not
+    #[test]
+    #[should_panic(expected = "A Person needs a name!")]
+    fn person_test() {
+        let new_person = Person::new(String::from(""));
+        assert_ne!(new_person.name, String::from("Kelvin"));
+    }
+
+    // Fails because it expected to panic and it didn't
+    #[test]
+    #[should_panic]
+    fn person_test2() {
+        let new_person = Person::new(String::from("Kelvin"));
+        assert_eq!(new_person.name, String::from("Kelvin"));
+    }
+
+    #[test]
+    fn person_test3() {
+        let new_person = Person::new(String::from("Kelvin"));
+        assert_eq!(new_person.name, String::from("Kelvin"));
     }
 }
